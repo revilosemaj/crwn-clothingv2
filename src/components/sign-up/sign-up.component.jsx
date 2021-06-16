@@ -43,6 +43,7 @@ class SignUp extends Component {
                 password : '',
                 confirmPassword : ''
             })
+            alert("Account has been successfully registered")
         } catch (error) {
             console.error(error.message)
         }
