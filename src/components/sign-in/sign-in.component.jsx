@@ -13,13 +13,14 @@ class SignIn extends Component {
             password : ''
         }
     }
-
+    
     handleSubmit = async event => {
         event.preventDefault()
         const { email, password } = this.state;
 
         try {
             await auth.signInWithEmailAndPassword(email, password)
+
             this.setState({ email : '', password : '' })
             alert('Sign In successfully')
         } catch(error){
@@ -60,7 +61,7 @@ class SignIn extends Component {
                     
                     <div className="buttons">
                         <CustomButton type="submit">Sign In</CustomButton>
-                        <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
+                        <CustomButton type="button" onClick={signInWithGoogle} isGoogleSignIn>
                             Sign in with Google
                         </CustomButton>
                     </div>

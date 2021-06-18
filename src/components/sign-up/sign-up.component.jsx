@@ -1,8 +1,14 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { setCurrentUser } from '../../redux/user/user.actions';
 import FormInput from '../form-input/form-input.component'
 import CustomButton from '../custom-button/custom-button.component';
 import { auth, createUserProfileDocument } from '../../firebase/firebase.utils'
 import './sign-up.styles.scss'
+
+const mapDispatchToProps = dispatch => ({
+    setCurrentUser : (user) => dispatch(setCurrentUser(user))
+})
 
 class SignUp extends Component {
     constructor(props) {
@@ -15,7 +21,9 @@ class SignUp extends Component {
             confirmPassword : ''
         }
     }
+    
     unsubscribeFromAuth = null
+
     handleChange = event => {
         const { name, value } = event.target;
 
@@ -23,6 +31,7 @@ class SignUp extends Component {
     }
 
     handleSubmit = async event => {
+        const { setCurrentUser } = this.props
         event.preventDefault()
 
         const { displayName, email, password, confirmPassword } = this.state
@@ -37,6 +46,7 @@ class SignUp extends Component {
 
             await createUserProfileDocument(user, { displayName })
 
+            setCurrentUser({ ...user, displayName })
             this.setState({ 
                 displayName : '',
                 email : '',
@@ -95,4 +105,4 @@ class SignUp extends Component {
     }
 }
 
-export default SignUp
+export default connect(null,mapDispatchToProps)(SignUp)
