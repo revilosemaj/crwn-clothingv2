@@ -17,11 +17,10 @@ const mapStateToProps = createStructuredSelector({
 })
 
 const mapDispatchToProps = dispatch => ({
-    setCurrentUser: (user) => dispatch(setCurrentUser(user))
+    setCurrentUser: user => dispatch(setCurrentUser(user))
 })
 
 class App extends React.Component {
-
   unsubscribeFromAuth = null
 
   componentDidMount = () => {
