@@ -74,18 +74,26 @@ firebase.initializeApp(config);
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
+export const checkUserAuthentication = () => {
+    return new Promise((resolve, reject) => {
+        const unsubscribe = auth.onAuthStateChanged( userAuth => {
+            unsubscribe()
+            resolve(userAuth)
+        }, reject)
+    })
+}
 // Give access to new GoogleAuthProvider 
 // class for authentication library
-const provider = new firebase.auth.GoogleAuthProvider();
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
 
 // We want to always trigger google pop-up
 // whenever we use GoogleAuthProvider for
 // authentication and sign-in
-provider.setCustomParameters({ prompt : 'select_account' }); 
+googleProvider.setCustomParameters({ prompt : 'select_account' }); 
 
 // Sign in with pop-up takes provider class that
 // we made but it takes it for many different types
 // of popups we just want the google one
-export const signInWithGoogle = () => auth.signInWithPopup(provider); 
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider); 
                                                                                                                   
 export default firebase; 

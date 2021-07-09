@@ -1,15 +1,17 @@
 import styled, { css } from 'styled-components'
 
-const root = {
-    subColor : 'grey',
-    mainColor : 'black',
-}
+const subColor = 'grey';
+const mainColor  = 'black';
 
 const shrinkLabelStyles = css`
     top: -14px;
     font-size: 12px;
-    color: ${root.mainColor};
+    color: ${mainColor};
 `
+
+const shrink = ({ value }) => {
+    return value.length ? shrinkLabelStyles : '';
+}
 
 export const GroupContainer = styled.div`
     position: relative;
@@ -19,8 +21,9 @@ export const GroupContainer = styled.div`
         letter-spacing: 0.3em;
     }
 `
+
 export const InputLabel = styled.label`
-    color: ${root.subColor};
+    color: ${subColor};
     font-size: 16px;
     font-weight: normal;
     position: absolute;
@@ -28,26 +31,28 @@ export const InputLabel = styled.label`
     left: 5px;
     top: 10px;
     transition: 300ms ease all;
+
+    ${shrink}
 `
 
 export const GroupInput = styled.input`
     background: none;
     background-color: white;
-    color : ${root.subColor};
+    color : ${subColor};
     font-size: 18px;
     padding: 10px 10px 10px 5px;
     display: block;
     width: 100%;
     border: none;
     border-radius: 0;
-    border-bottom: 1px solid ${root.subColor};
+    border-bottom: 1px solid ${subColor};
     margin: 25px 0;
 
     &:focus {
         outline: none;
     }
 
-    &:focus ~ ${InputLabel} {
+    &:focus ~ label {
         ${shrinkLabelStyles}
     }
 `
